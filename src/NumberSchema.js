@@ -1,29 +1,20 @@
-class Numbers {
-  constructor(results = { even: true, odd: true }) {
-    this.respons = results;
+/* eslint-disable class-methods-use-this */
+export default class Numbers {
+  constructor(validators) {
+    this.validators = [...validators];
   }
 
   isValid(sign) {
-    let { even, odd } = this.respons;
-    if (odd === false) {
-      even = (sign % 2 === 0);
-    } else if (even === false) {
-      odd = (sign % 2 !== 0);
-    }
-    return !!(((typeof sign === 'number') && (even || odd)));
+    return this.validators.every((validator) => validator(sign));
   }
 
-  // eslint-disable-next-line class-methods-use-this
   even() {
-    const even = { even: true, odd: false };
-    return new Numbers(even);
+    const val = (num) => !!(num % 2 === 0);
+    return new Numbers([...this.validators, val]);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   odd() {
-    const odd = { odd: true, even: false };
-    return new Numbers(odd);
+    const val = (num) => !!(num % 2 !== 0);
+    return new Numbers([...this.validators, val]);
   }
 }
-
-export default Numbers;

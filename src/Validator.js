@@ -1,19 +1,17 @@
+/* eslint-disable class-methods-use-this */
 import Numbers from './NumberSchema.js';
 import Arrays from './ArraySchema.js';
 import Objects from './ObjectSchema.js';
 
 class Validator {
-  // eslint-disable-next-line class-methods-use-this
   number() {
-    return new Numbers();
+    return new Numbers([(value) => typeof value === 'number']);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   array() {
-    return new Arrays();
+    return new Arrays([(value) => Array.isArray(value)]);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   object() {
     return new Objects();
   }

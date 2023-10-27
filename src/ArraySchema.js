@@ -1,18 +1,15 @@
 class Arrays {
-  constructor(num) {
-    this.num = num || false;
+  constructor(validators) {
+    this.validators = [...validators];
   }
 
-  isValid(sign) {
-    if (this.num !== false) {
-      return Array.isArray(sign) && (sign.length === this.num);
-    }
-    return !!(Array.isArray(sign));
+  isValid(arr) {
+    return this.validators.every((validator) => validator(arr));
   }
 
-  // eslint-disable-next-line class-methods-use-this
   length(num) {
-    return new Arrays(num);
+    const val = (arr) => !!(arr.length === num);
+    return new Arrays([...this.validators, val]);
   }
 }
 
